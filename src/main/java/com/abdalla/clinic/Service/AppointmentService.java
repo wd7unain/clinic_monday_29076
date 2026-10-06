@@ -2,6 +2,7 @@ package com.abdalla.clinic.Service;
 
 import com.abdalla.clinic.Entities.Appointment;
 import com.abdalla.clinic.Entities.Doctor;
+import com.abdalla.clinic.Entities.Office;
 import com.abdalla.clinic.Entities.Patient;
 import com.abdalla.clinic.Repository.AppointmentRepository;
 import com.abdalla.clinic.Repository.DoctorRepository;
@@ -59,5 +60,9 @@ public class AppointmentService {
 
     public List<Appointment> findBetween(Date start, Date end){
         return appointmentRepo.findByDateBetween(start,end);
+    }
+
+    public List<Object[]> countAppointmentsByStatus(){
+        return appointmentRepo.countAppointmentsByStatus();
     }
 }

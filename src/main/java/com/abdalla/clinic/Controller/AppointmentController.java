@@ -28,4 +28,8 @@ public class AppointmentController {
     public List<Appointment> findBetween(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date start, @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date end){
         return appService.findBetween(start , end) ;
     }
+    @GetMapping("/stats/by-status")
+    public List<Object[]> countAppointmentsByStatus(){
+        return appService.countAppointmentsByStatus();
+    }
 }

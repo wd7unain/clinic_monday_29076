@@ -64,6 +64,5 @@ public class PatientService {
             return patientRepo.findDistinctPatientByDoctorId(doctorId);
             else
             return new ArrayList<>()   ;
-
     }
 }
