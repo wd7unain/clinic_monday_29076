@@ -4,6 +4,7 @@ import com.abdalla.clinic.Entities.Doctor;
 import com.abdalla.clinic.Entities.Specialization;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -22,4 +23,7 @@ public interface DoctorRepository extends JpaRepository<Doctor, Long> {
 
     
     public List<Doctor> findByOfficeIsNull();
+
+    boolean existsByOffice_OfficeNumber(int officeOfficeNumber);
+
 }

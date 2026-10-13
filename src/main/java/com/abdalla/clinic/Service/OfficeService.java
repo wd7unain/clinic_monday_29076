@@ -4,6 +4,8 @@ import com.abdalla.clinic.Entities.Office;
 import com.abdalla.clinic.Repository.OfficeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -47,4 +49,10 @@ public class OfficeService {
         officeRepo.deleteById(id);
         return "Office " + officeNum + " Deleted successfully";
     }
+
+    public List<Office> freeOffices (){
+        return officeRepo.freeOffices();
+    }
+
+
 }

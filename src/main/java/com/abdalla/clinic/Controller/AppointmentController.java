@@ -4,6 +4,7 @@ import com.abdalla.clinic.Entities.Appointment;
 import com.abdalla.clinic.Service.AppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -14,8 +15,8 @@ import java.util.List;
 public class AppointmentController {
     @Autowired
     private AppointmentService appService ;
-    @PostMapping
-    public String saveAppointment(@RequestBody Appointment app , @RequestParam Long doctorId , @RequestParam Long patientId){
+    @PostMapping("/save")
+    public ResponseEntity<?> saveAppointment(@RequestBody Appointment app , @RequestParam Long doctorId , @RequestParam Long patientId){
         return appService.saveAppointment(app ,doctorId ,patientId) ;
 
     }

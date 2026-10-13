@@ -3,6 +3,7 @@ package com.abdalla.clinic.Controller;
 import com.abdalla.clinic.Entities.Office;
 import com.abdalla.clinic.Service.OfficeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -37,5 +38,10 @@ public class OfficeController {
     @DeleteMapping("/{id}")
     public String deleteOffice(@PathVariable Long id) {
         return officeService.deleteOffice(id);
+    }
+
+    @GetMapping("/free")
+    public List<Office> freeOffices(){
+        return officeService.freeOffices();
     }
 }
