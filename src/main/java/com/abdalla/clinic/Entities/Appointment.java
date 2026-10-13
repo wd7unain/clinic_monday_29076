@@ -3,16 +3,17 @@ package com.abdalla.clinic.Entities;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
-import java.util.Date;
+import java.time.LocalDate;
 @Entity
 @Table(name = "Appointments")
 public class Appointment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id ;
-    private Date date ;
+    private LocalDate date ;
     private String reason ;
-    private String status ;
+    @Enumerated(EnumType.STRING)
+    private Status status ;
 
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) // same to hid lazy initi from z resp
     @ManyToOne (fetch = FetchType.LAZY)
@@ -25,11 +26,11 @@ public class Appointment {
     @JoinColumn(name = "doctor_id")
     private Doctor doctor;
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
@@ -49,11 +50,11 @@ public class Appointment {
         this.reason = reason;
     }
 
-    public String getStatus() {
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 

@@ -1,13 +1,14 @@
 package com.abdalla.clinic.Controller;
 
 import com.abdalla.clinic.Entities.Appointment;
+import com.abdalla.clinic.Entities.Status;
 import com.abdalla.clinic.Service.AppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -21,16 +22,26 @@ public class AppointmentController {
 
     }
     @GetMapping("/by-status")
-    public List<Appointment> findByStatus(@RequestParam String status){
-        return appService.findAppByStatus(status);
+    public List<Appointment> findByStatus(@RequestParam Status status){
+        return appService.findByStatus(status);
     }
 
     @GetMapping("/between")
-    public List<Appointment> findBetween(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date start, @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date end){
+    public List<Appointment> findBetween(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate start, @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate end){
         return appService.findBetween(start , end) ;
     }
     @GetMapping("/stats/by-status")
     public List<Object[]> countAppointmentsByStatus(){
         return appService.countAppointmentsByStatus();
+    }
+
+    @PatchMapping("/{id}/status")
+    public ResponseEntity<?> changeStatus(@PathVariable Long id , @RequestParam Status status) {
+        return appService.changeStatus(id, status);
+    }
+
+    @PatchMapping("/{appId}/reschedule")
+    public ResponseEntity<?> reschedule(@PathVariable Long appId,@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate newDate) {
+        return appService.reschedule(appId, newDate);
     }
 }
