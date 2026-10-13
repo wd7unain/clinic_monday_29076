@@ -4,9 +4,11 @@ import com.abdalla.clinic.Entities.Doctor;
 import com.abdalla.clinic.Repository.DoctorRepository;
 import com.abdalla.clinic.Service.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -68,4 +70,11 @@ public class DoctorController {
     public ResponseEntity<?> changeOffice(@PathVariable Long doctorId , @RequestParam int officeNumber){
         return doctorService.changeOffice(doctorId,officeNumber);
     }
+
+    @GetMapping("/{doctorId}/agenda")
+    public ResponseEntity<?> agenda(@PathVariable Long doctorId, @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date) {
+
+        return doctorService.agenda(doctorId, date);
+    }
+
 }

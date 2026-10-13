@@ -5,6 +5,7 @@ import com.abdalla.clinic.Entities.Patient;
 import com.abdalla.clinic.Repository.PatientRepository;
 import com.abdalla.clinic.Service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -46,5 +47,10 @@ public class PatientController {
     @GetMapping("/frequent")
     public List<Patient> getFrequentPatients(@RequestParam long min){
         return patientRepo.findFrequentPatient(min);
+    }
+
+    @GetMapping("/{ssNumber}/upcoming")
+    public ResponseEntity<?> upcoming(@PathVariable Long ssNumber) {
+        return patientService.upcoming(ssNumber);
     }
 }

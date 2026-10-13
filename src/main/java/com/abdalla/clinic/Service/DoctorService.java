@@ -1,7 +1,10 @@
 package com.abdalla.clinic.Service;
 
+import com.abdalla.clinic.Entities.Appointment;
 import com.abdalla.clinic.Entities.Doctor;
 import com.abdalla.clinic.Entities.Specialization;
+import com.abdalla.clinic.Entities.Status;
+import com.abdalla.clinic.Repository.AppointmentRepository;
 import com.abdalla.clinic.Repository.DoctorRepository;
 import com.abdalla.clinic.Repository.OfficeRepository;
 import com.abdalla.clinic.Repository.SpecializationRepository;
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.print.Doc;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -29,6 +33,8 @@ public class DoctorService {
     private OfficeRepository officeRepository ;
     @Autowired
     private SpecializationRepository specializationRepo ;
+    @Autowired
+    private AppointmentRepository appointmentRepo ;
 
 
 
@@ -149,4 +155,14 @@ public class DoctorService {
 
 
          }
+
+    public ResponseEntity<?> agenda(Long doctorId, LocalDate date) {
+        if (!doctorRepo.existsById(doctorId))
+            return new ResponseEntity<>("The doctor with that id does not exist", HttpStatus.NOT_FOUND);
+
+        List<Appointment> list = appointmentRepo.findByDoctor_IdAndDateAndStatusNot(doctorId, date, Status.CANCELLED);
+
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
     }

@@ -1,14 +1,20 @@
 package com.abdalla.clinic.Service;
 
+import com.abdalla.clinic.Entities.Appointment;
 import com.abdalla.clinic.Entities.Patient;
+import com.abdalla.clinic.Entities.Status;
+import com.abdalla.clinic.Repository.AppointmentRepository;
 import com.abdalla.clinic.Repository.DoctorRepository;
 import com.abdalla.clinic.Repository.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +25,9 @@ public class PatientService {
 
     @Autowired
     private DoctorRepository doctorRepo ;
+
+    @Autowired
+    AppointmentRepository appointmentRepo;
 
     public String addPatient ( Patient patient){                         //
         if(patient.getName() != null && patient.getName().matches("^[^0-9]*$")  ){
@@ -64,5 +73,16 @@ public class PatientService {
             return patientRepo.findDistinctPatientByDoctorId(doctorId);
             else
             return new ArrayList<>()   ;
+    }
+
+    public ResponseEntity<?> upcoming(Long ssNumber) {
+        if (!patientRepo.existsBySsNumber(ssNumber))
+            return new ResponseEntity<>("That patient with that ssnumber does not exist", HttpStatus.NOT_FOUND);
+
+        List<Appointment> list = appointmentRepo
+                .findByPatient_SsNumberAndDateGreaterThanEqualAndStatusInOrderByDateAsc(
+                        ssNumber, LocalDate.now(),
+                        List.of(Status.SCHEDULED, Status.CONFIRMED));
+        return new ResponseEntity<>(list, HttpStatus.OK);
     }
 }

@@ -21,4 +21,5 @@ public interface PatientRepository extends JpaRepository<Patient , Long> {
 
     @Query ("select a.patient from Appointment a group by a.patient having count(a) >= :min order by count(a) desc")
     List<Patient>  findFrequentPatient (@Param("min") long min);
+    boolean existsBySsNumber(Long ssNumber);
 }
