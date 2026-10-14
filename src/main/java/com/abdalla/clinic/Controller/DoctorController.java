@@ -77,4 +77,9 @@ public class DoctorController {
         return doctorService.agenda(doctorId, date);
     }
 
+    @GetMapping("/search")
+    public List<Doctor> searchByName(@RequestParam String name){
+        return doctorService.searchByName(name);
+    }
+
 }

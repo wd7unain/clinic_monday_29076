@@ -24,7 +24,7 @@ public class PatientController {
         return patientService.findPatientsByName(lastName);
     }
 
-    @PostMapping
+    @PostMapping("/save")
     public String addPatient(@RequestBody Patient patient){
         return patientService.addPatient(patient);
     }

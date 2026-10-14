@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/prescriptions")
@@ -31,12 +32,12 @@ public class PrescriptionController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<?> update(@PathVariable Long id, @RequestBody Prescription prescription) {
+    public ResponseEntity<?> update(@PathVariable UUID id, @RequestBody Prescription prescription) {
         return prescriptionService.update(id, prescription);
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> delete(@PathVariable Long id) {
+    public ResponseEntity<?> delete(@PathVariable UUID id) {
         return prescriptionService.delete(id);
     }
 }

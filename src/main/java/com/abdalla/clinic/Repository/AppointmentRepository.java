@@ -31,4 +31,8 @@ public interface AppointmentRepository extends JpaRepository<Appointment , Long 
 
 
     List<Appointment> findByPatient_SsNumberAndDateGreaterThanEqualAndStatusInOrderByDateAsc(Long ssNumber, LocalDate date, List<Status> statuses);
+
+    Long countByDate(LocalDate date);
+
+    Long countByStatus(Status status);
 }

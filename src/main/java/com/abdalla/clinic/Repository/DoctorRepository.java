@@ -27,4 +27,7 @@ public interface DoctorRepository extends JpaRepository<Doctor, Long> {
 
     boolean existsByOffice_OfficeNumber(int officeOfficeNumber);
 
+    @Query("select d from  Doctor d where lower(d.name) like lower(concat('%', :name, '%')) ")
+    List<Doctor> searchByName(@Param("name") String name);
+
 }

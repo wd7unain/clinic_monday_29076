@@ -156,13 +156,17 @@ public class DoctorService {
 
          }
 
-    public ResponseEntity<?> agenda(Long doctorId, LocalDate date) {
-        if (!doctorRepo.existsById(doctorId))
-            return new ResponseEntity<>("The doctor with that id does not exist", HttpStatus.NOT_FOUND);
+        public ResponseEntity<?> agenda(Long doctorId, LocalDate date) {
+            if (!doctorRepo.existsById(doctorId))
+                return new ResponseEntity<>("The doctor with that id does not exist", HttpStatus.NOT_FOUND);
 
-        List<Appointment> list = appointmentRepo.findByDoctor_IdAndDateAndStatusNot(doctorId, date, Status.CANCELLED);
+            List<Appointment> list = appointmentRepo.findByDoctor_IdAndDateAndStatusNot(doctorId, date, Status.CANCELLED);
 
-        return new ResponseEntity<>(list, HttpStatus.OK);
-    }
+            return new ResponseEntity<>(list, HttpStatus.OK);
+        }
+
+        public List<Doctor> searchByName(String name){
+            return doctorRepo.searchByName(name);
+        }
 
     }

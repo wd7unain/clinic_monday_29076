@@ -51,7 +51,7 @@ public class PrescriptionService {
         return prescriptionRepo.findByPatientSsNumber(ssNumber);
     }
 
-    public ResponseEntity<?> update(Long id, Prescription newData) {
+    public ResponseEntity<?> update(UUID id, Prescription newData) {
         Prescription p = prescriptionRepo.findById(id).orElse(null);
         if (p == null)
             return new ResponseEntity<>("The prescription with that id does not exist", HttpStatus.NOT_FOUND);
@@ -66,7 +66,7 @@ public class PrescriptionService {
         return new ResponseEntity<>("Prescription updated successfully", HttpStatus.OK);
     }
 
-    public ResponseEntity<?> delete(Long id) {
+    public ResponseEntity<?> delete(UUID id) {
         if (!prescriptionRepo.existsById(id))
             return new ResponseEntity<>("The prescription with that id does not exist", HttpStatus.NOT_FOUND);
 

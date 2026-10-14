@@ -1,5 +1,6 @@
 package com.abdalla.clinic.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ public class Patient {
     private Long ssNumber;
     private  String name ;
 
-
+    @JsonIgnore
     @OneToMany (mappedBy = "patient" , cascade = CascadeType.ALL , orphanRemoval = true )
     private List<Appointment> appointments = new ArrayList<>() ;
 
