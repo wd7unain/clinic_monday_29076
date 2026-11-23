@@ -3,13 +3,16 @@ package com.abdalla.clinic.Controller;
 import com.abdalla.clinic.Entities.Office;
 import com.abdalla.clinic.Service.OfficeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/offices")
+@CrossOrigin(origins = "*")
 public class OfficeController {
 
     @Autowired
@@ -25,7 +28,7 @@ public class OfficeController {
         return officeService.findOffice(id);
     }
 
-    @PostMapping
+    @PostMapping("/save")
     public String addOffice(@RequestBody Office office) {
         return officeService.addOffice(office);
     }
@@ -43,5 +46,14 @@ public class OfficeController {
     @GetMapping("/free")
     public List<Office> freeOffices(){
         return officeService.freeOffices();
+    }
+    @GetMapping("/byNumber")
+    public ResponseEntity<?> byNumber(@RequestParam int officeNumber){
+        Optional<Office> officeOpt=officeService.findOfficeByNumber(officeNumber);
+        if (officeOpt.isEmpty())
+            return new ResponseEntity<>("Office with that number is not found", HttpStatus.NOT_FOUND);
+
+        return new ResponseEntity<>(officeOpt.get(), HttpStatus.OK);
+
     }
 }

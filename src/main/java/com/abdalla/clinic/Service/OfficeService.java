@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class OfficeService {
@@ -53,6 +54,12 @@ public class OfficeService {
     public List<Office> freeOffices (){
         return officeRepo.freeOffices();
     }
+
+    public Optional<Office> findOfficeByNumber(int officeNumber){
+            return officeRepo.findByOfficeNumber(officeNumber);
+    }
+
+
 
 
 }

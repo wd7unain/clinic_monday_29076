@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface OfficeRepository extends JpaRepository<Office, Long> {
@@ -15,5 +16,5 @@ public interface OfficeRepository extends JpaRepository<Office, Long> {
 
     boolean existsByOfficeNumber(int officeNumber);
 
-    Office findByOfficeNumber(int officeNumber);
+    Optional<Office> findByOfficeNumber(int officeNumber);
 }

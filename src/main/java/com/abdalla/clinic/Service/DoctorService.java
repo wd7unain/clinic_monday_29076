@@ -148,7 +148,7 @@ public class DoctorService {
              if(doctorRepo.existsByOffice_OfficeNumber(officeNumber))
                  return new ResponseEntity<>("That office is taken by other doctor",HttpStatus.CONFLICT);
              Doctor doctor= doctorRepo.findById(doctorId).orElse(new Doctor());
-             doctor.setOffice(officeRepository.findByOfficeNumber(officeNumber));
+             doctor.setOffice(officeRepository.findByOfficeNumber(officeNumber).orElse(null));
              doctorRepo.save(doctor);
 
              return new ResponseEntity<>("Office changed successfully",HttpStatus.OK);
